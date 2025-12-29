@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4a5568">
+    <meta name="description" content="Daily check-in for tracking school day experiences">
+    <title>Daily Check-In</title>
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Welcome Screen -->
+        <section id="screen-welcome" class="screen active">
+            <div class="screen-content">
+                <div class="welcome-icon">📝</div>
+                <h1>Daily Check-In</h1>
+                <p class="subtitle">Just a few quick questions about your day</p>
+                <p class="time-estimate">Takes about 1 minute</p>
+                <button class="btn-primary" onclick="app.start()">Let's Go</button>
+            </div>
+        </section>
+
+        <!-- Question 1: Overall Day -->
+        <section id="screen-q1" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <h2 class="question">How was your day at school overall?</h2>
+                <div class="rating-scale emoji-scale">
+                    <button class="rating-btn" data-value="1" onclick="app.selectRating('overall_day', 1)">
+                        <span class="emoji">😫</span>
+                        <span class="label">Really tough</span>
+                    </button>
+                    <button class="rating-btn" data-value="2" onclick="app.selectRating('overall_day', 2)">
+                        <span class="emoji">😕</span>
+                        <span class="label">Difficult</span>
+                    </button>
+                    <button class="rating-btn" data-value="3" onclick="app.selectRating('overall_day', 3)">
+                        <span class="emoji">😐</span>
+                        <span class="label">Okay</span>
+                    </button>
+                    <button class="rating-btn" data-value="4" onclick="app.selectRating('overall_day', 4)">
+                        <span class="emoji">🙂</span>
+                        <span class="label">Good</span>
+                    </button>
+                    <button class="rating-btn" data-value="5" onclick="app.selectRating('overall_day', 5)">
+                        <span class="emoji">😄</span>
+                        <span class="label">Great</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 2: Academic Focus -->
+        <section id="screen-q2" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot complete"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="btn-back" onclick="app.goBack()" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2 class="question">Were you able to focus and do your work today?</h2>
+                <div class="rating-scale number-scale">
+                    <button class="rating-btn" data-value="1" onclick="app.selectRating('academic_focus', 1)">
+                        <span class="number">1</span>
+                        <span class="label">Almost never</span>
+                    </button>
+                    <button class="rating-btn" data-value="2" onclick="app.selectRating('academic_focus', 2)">
+                        <span class="number">2</span>
+                        <span class="label">Sometimes</span>
+                    </button>
+                    <button class="rating-btn" data-value="3" onclick="app.selectRating('academic_focus', 3)">
+                        <span class="number">3</span>
+                        <span class="label">Half the time</span>
+                    </button>
+                    <button class="rating-btn" data-value="4" onclick="app.selectRating('academic_focus', 4)">
+                        <span class="number">4</span>
+                        <span class="label">Most of the time</span>
+                    </button>
+                    <button class="rating-btn" data-value="5" onclick="app.selectRating('academic_focus', 5)">
+                        <span class="number">5</span>
+                        <span class="label">Almost always</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 3: Social Interactions -->
+        <section id="screen-q3" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="btn-back" onclick="app.goBack()" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2 class="question">Did you have any positive moments with other kids today?</h2>
+                <div class="choice-list">
+                    <button class="choice-btn" onclick="app.selectChoice('social_interactions', 'yes_several')">
+                        <span class="choice-icon">✨</span>
+                        <span class="choice-text">Yes, several good moments</span>
+                    </button>
+                    <button class="choice-btn" onclick="app.selectChoice('social_interactions', 'yes_one')">
+                        <span class="choice-icon">👍</span>
+                        <span class="choice-text">Yes, at least one</span>
+                    </button>
+                    <button class="choice-btn" onclick="app.selectChoice('social_interactions', 'not_really')">
+                        <span class="choice-icon">🤷</span>
+                        <span class="choice-text">Not really, but that's okay</span>
+                    </button>
+                    <button class="choice-btn" onclick="app.selectChoice('social_interactions', 'no_wished')">
+                        <span class="choice-icon">😔</span>
+                        <span class="choice-text">No, and I wished I had</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 4: Dysregulation -->
+        <section id="screen-q4" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="btn-back" onclick="app.goBack()" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2 class="question">How many times did you feel like you might lose control today?</h2>
+                <div class="number-picker">
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 0)">0</button>
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 1)">1</button>
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 2)">2</button>
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 3)">3</button>
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 4)">4</button>
+                    <button class="number-btn" onclick="app.selectNumber('dysregulation_count', 5)">5+</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 4b: Coping Strategy (conditional) -->
+        <section id="screen-q4b" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="btn-back" onclick="app.goBack()" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2 class="question">Did you use a strategy to calm down?</h2>
+                <div class="choice-list">
+                    <button class="choice-btn" onclick="app.selectChoice('used_coping_strategy', 'yes_helped')">
+                        <span class="choice-icon">💪</span>
+                        <span class="choice-text">Yes, and it helped</span>
+                    </button>
+                    <button class="choice-btn" onclick="app.selectChoice('used_coping_strategy', 'yes_not_much')">
+                        <span class="choice-icon">🤔</span>
+                        <span class="choice-text">Yes, but it didn't help much</span>
+                    </button>
+                    <button class="choice-btn" onclick="app.selectChoice('used_coping_strategy', 'no')">
+                        <span class="choice-icon">❌</span>
+                        <span class="choice-text">No</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 5: Free Response -->
+        <section id="screen-q5" class="screen">
+            <div class="screen-content">
+                <div class="progress-dots">
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot complete"></span>
+                    <span class="dot active"></span>
+                </div>
+                <button class="btn-back" onclick="app.goBack()" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2 class="question">What's one thing you want to remember about today?</h2>
+                <p class="hint">A win, a challenge, something funny... (optional)</p>
+                <textarea 
+                    id="free-response" 
+                    class="text-input" 
+                    placeholder="Type here..."
+                    maxlength="200"
+                    oninput="app.updateCharCount()"
+                ></textarea>
+                <div class="char-count"><span id="char-current">0</span>/200</div>
+                <button class="btn-primary" onclick="app.submitFreeResponse()">Finish</button>
+            </div>
+        </section>
+
+        <!-- Confirmation Screen -->
+        <section id="screen-done" class="screen">
+            <div class="screen-content">
+                <div class="done-icon">✅</div>
+                <h2>All done!</h2>
+                <p class="done-message">Thanks for checking in today, Carmel.</p>
+                <div class="done-summary" id="done-summary"></div>
+                <div class="done-actions">
+                    <button class="btn-secondary" onclick="app.reset()">Do Another Check-In</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings/Admin Screen (hidden by default) -->
+        <section id="screen-settings" class="screen">
+            <div class="screen-content">
+                <button class="btn-back" onclick="app.showScreen('screen-welcome')" aria-label="Go back">
+                    ← Back
+                </button>
+                <h2>Settings</h2>
+                
+                <div class="settings-section">
+                    <h3>Google Sheets Connection</h3>
+                    <label for="sheets-url">Apps Script URL:</label>
+                    <input type="url" id="sheets-url" class="text-input" placeholder="https://script.google.com/...">
+                    <button class="btn-secondary" onclick="storage.saveConfig()">Save</button>
+                    <button class="btn-secondary" onclick="storage.testConnection()">Test Connection</button>
+                    <p id="connection-status" class="status-message"></p>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Local Data</h3>
+                    <p><span id="local-count">0</span> entries stored locally</p>
+                    <button class="btn-secondary" onclick="storage.exportCSV()">Export as CSV</button>
+                    <button class="btn-secondary" onclick="storage.exportJSON()">Export as JSON</button>
+                    <button class="btn-danger" onclick="storage.clearLocal()">Clear Local Data</button>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>Sync</h3>
+                    <button class="btn-primary" onclick="storage.syncAll()">Sync to Google Sheets</button>
+                    <p id="sync-status" class="status-message"></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Settings gear icon -->
+    <button class="settings-btn" onclick="app.showScreen('screen-settings')" aria-label="Settings">
+        ⚙️
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

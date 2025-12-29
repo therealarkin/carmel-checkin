@@ -6,7 +6,7 @@
 const storage = {
     // Configuration
     config: {
-        sheetsUrl: '',
+        sheetsUrl: 'https://script.google.com/macros/s/AKfycbx0BHrK2r8X7K9NN5hW7q3wBVurCEyY9ZZWDw_gmaJH8j5162-8pohgNlbrJiDmMb30/exec',
         localStorageKey: 'carmel_checkin_entries',
         configKey: 'carmel_checkin_config'
     },
